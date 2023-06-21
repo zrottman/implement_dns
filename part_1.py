@@ -37,7 +37,6 @@ def encode_dns_name(domain_name):
         encoded += bytes([len(part)]) + part
     return encoded + b"\x00"
 
-
 def build_query(domain_name, record_type):
     name = encode_dns_name(domain_name)
     id = random.randint(0, 65535)
@@ -52,6 +51,6 @@ if __name__ == '__main__':
     
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    sock.sendto(query, ("8,8,8,8", 53))
+    sock.sendto(query, ("8.8.8.8", 53))
 
     response, _ = sock.recvfrom(1024)
