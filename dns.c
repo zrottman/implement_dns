@@ -12,17 +12,28 @@ struct DNSHeader {
     int num_additionals;  // = 0
 };
 
+struct DNSQuestion {
+    int name[];
+    int type;
+    int class;
+};
+
 /* Function declarations */
 struct DNSHeader make_header(int id, int flags, int num_questions, int num_answers, int num_authorities, int num_additionals);
+
+struct DNSQuestion make_question(int name[], int type, int class, int lim);
 
 int main()
 {
 
     struct DNSHeader header;
+    struct DNSQuestion question;
 
     header = make_header(5, 10, 1, 2, 3, 4);
+    question = make_question("google", 5, 10, MAXQUESTION);
 
     printf("Header.id: %d\n", header.id);
+    printf("Question.type: %d\n", question.type);
 
     return 0;
 }
@@ -41,4 +52,14 @@ struct DNSHeader make_header(int id, int flags, int num_questions, int num_answe
     header.num_additionals  = num_additionals ? num_additionals : 0;
 
     return header;
+}
+
+/* Make DNS question */
+struct DNSQuestion make_question(int name[], int type, int class, int lim)
+{
+    struct DNSQuestion question;
+
+    question.name  = name[];
+    question.type  = type;
+    question.class = class;
 }
